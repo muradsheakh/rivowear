@@ -90,7 +90,7 @@ Users (with passwords), products, orders, reviews, coupons and wishlists are cop
 
 ## Going live checklist
 1. **Steadfast**: `STEADFAST_API_KEY` and `STEADFAST_SECRET_KEY`. Admin > Orders > *Send to Steadfast* creates the parcel with the customer's name, phone, address and COD amount. Status is synced every 10 minutes.
-2. **SMS**: `SMS_PROVIDER=bulksmsbd`, `SMS_API_KEY`, `SMS_SENDER_ID`. For another provider change only `backend/src/services/sms.ts`.
+2. **SMS**: `SMS_PROVIDER=brevo` or `bulksmsbd`, `SMS_API_KEY`, `SMS_SENDER_ID`. Brevo transactional SMS may require credits and country permissions for Bangladesh. For another provider change only `backend/src/services/sms.ts`.
 3. **Email**: the `SMTP_*` values.
 4. **Online payment**: SSLCommerz store ID/password (keep `SSLCOMMERZ_LIVE=false` until sandbox payments work). In the SSLCommerz panel set the IPN URL to `https://api.yourdomain.com/api/payments/sslcommerz/ipn`.
 5. **bKash / Nagad send-money**: your merchant numbers in Admin > Settings. Verify each TrxID in Admin > Orders.

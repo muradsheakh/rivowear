@@ -29,6 +29,12 @@ Admin: `GET /api/admin/summary | orders | customers`, `PATCH /api/admin/orders/:
 - Login is limited per IP and per account (10 attempts / 15 min per account, reset by a correct login).
 - Stock is checked and reduced when an order is placed, and restored when it is cancelled.
 
+## Brevo SMS and email
+
+Brevo can send transactional SMS with `SMS_PROVIDER=brevo`, `SMS_API_KEY` (a Brevo API key), and `SMS_SENDER_ID` (a Brevo-approved sender name). The SMS sender is limited by Brevo to 11 alphanumeric or 15 numeric characters. Brevo may require SMS credits and country permissions before a message can be delivered; check the account's transactional SMS availability for Bangladesh.
+
+Email can use Brevo's SMTP relay with `SMTP_HOST=smtp-relay.brevo.com`, `SMTP_PORT=587`, `SMTP_USER` set to the SMTP login shown in Brevo, `SMTP_PASS` set to its SMTP key, and `SMTP_FROM` set to a verified sender. The SMTP key is distinct from the Brevo API key. Keep all credentials in the hosting provider's environment variables, never in Git.
+
 ## Still not included
 
-Online payment (only cash on delivery), email/SMS sending, Google/Facebook/Apple login, image upload (products use image URLs), and a real database for large scale.
+Online payment (only cash on delivery), Google/Facebook/Apple login, product image upload (products use image URLs), and a database setup intended for large-scale production.
