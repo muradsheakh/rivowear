@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "@/shared/router";
-import AuthSocialButtons from "../shared/components/AuthSocialButtons";
 import { assets } from "../shared/assets";
 import Footer from "../components/Common/Footer";
 import Header from "../components/Common/Header";
@@ -131,7 +130,6 @@ const Register = () => {
               </button>
             </form>
 
-            <AuthSocialButtons action="sign up" />
             <p className="mt-7 text-center text-sm text-gray-900">
               Already have an account?{" "}
               <Link

@@ -3,7 +3,7 @@
 import { useSearchParams } from "@/shared/router";
 
 type Option = { label: string; value: string };
-type ShopFiltersProps = { categories: Option[]; colors: { name: string; hex: string }[] };
+type ShopFiltersProps = { categories: Option[] };
 
 const GENDERS: Option[] = [
   { label: "All", value: "" },
@@ -15,7 +15,7 @@ const chip = (active: boolean) =>
   `rounded-full border px-4 py-1.5 text-sm transition ${active ? "border-black bg-black text-white" : "border-gray-200 text-gray-700 hover:border-black"}`;
 
 /** The filter bar changes the address; the server then renders the matching products (good for search engines and sharing). */
-const ShopFilters = ({ categories, colors }: ShopFiltersProps) => {
+const ShopFilters = ({ categories }: ShopFiltersProps) => {
   const [params, setParams] = useSearchParams();
   const get = (key: string) => params.get(key) ?? "";
   const update = (key: string, value: string) => {
@@ -24,8 +24,6 @@ const ShopFilters = ({ categories, colors }: ShopFiltersProps) => {
     else next.delete(key);
     setParams(next, { replace: true });
   };
-  const color = get("color").toLowerCase();
-
   return (
     <div className="mt-6">
       <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -53,26 +51,9 @@ const ShopFilters = ({ categories, colors }: ShopFiltersProps) => {
         </select>
       </div>
 
-      {colors.length > 0 && (
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <span className="text-sm text-gray-600">Color:</span>
-          {colors.map((item) => (
-            <button
-              key={item.name}
-              type="button"
-              title={item.name}
-              aria-label={`Filter by ${item.name}`}
-              aria-pressed={color === item.name.toLowerCase()}
-              onClick={() => update("color", color === item.name.toLowerCase() ? "" : item.name)}
-              className={`h-7 w-7 rounded-full border-2 ${color === item.name.toLowerCase() ? "border-black ring-2 ring-black ring-offset-2" : "border-gray-300"}`}
-              style={{ backgroundColor: item.hex }}
-            />
-          ))}
-          <label className="ml-auto flex items-center gap-2 text-sm text-gray-600">
-            <input type="checkbox" checked={get("inStock") === "true"} onChange={(event) => update("inStock", event.target.checked ? "true" : "")} /> In stock only
-          </label>
-        </div>
-      )}
+      <label className="mt-5 flex items-center gap-2 text-sm text-gray-600">
+        <input type="checkbox" checked={get("inStock") === "true"} onChange={(event) => update("inStock", event.target.checked ? "true" : "")} /> In stock only
+      </label>
     </div>
   );
 };

@@ -3,7 +3,6 @@
 import { HiOutlineUser, HiOutlineShoppingBag } from "react-icons/hi";
 
 import Link from "next/link";
-import SearchBar from "./SearchBar";
 import CartDrawer from "../Layout/CartDrawer";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../shared/context/useAuth";
@@ -125,8 +124,6 @@ const Navbar = () => {
             )}
           </button>
           {/* search bar  */}
-
-          <SearchBar />
 
           <button
             onClick={toggleNavbar}
