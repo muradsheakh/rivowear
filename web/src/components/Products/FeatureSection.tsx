@@ -4,13 +4,13 @@ import { FiCreditCard, FiRefreshCw, FiShoppingBag } from "react-icons/fi";
 
 const features = [
   {
-    title: "Free international shipping",
-    description: "On all orders over ৳5,000",
+    title: "Delivery across Bangladesh",
+    description: "Dhaka from ৳70 · outside Dhaka from ৳130",
     icon: FiShoppingBag,
   },
   {
-    title: "45 days return",
-    description: "Money back guarantee",
+    title: "7 days exchange",
+    description: "Contact support within 7 days of delivery",
     icon: FiRefreshCw,
   },
   {
@@ -23,6 +23,7 @@ const features = [
 const FeatureSection = () => {
   return (
     <section
+      id="features"
       aria-label="Shopping benefits"
       className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-16 sm:grid-cols-3 sm:gap-6 sm:px-8 sm:py-20 lg:px-10"
     >

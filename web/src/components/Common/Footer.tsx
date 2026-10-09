@@ -1,7 +1,6 @@
 "use client";
 
-import { FiInstagram, FiPhone } from "react-icons/fi";
-import { FaXTwitter } from "react-icons/fa6";
+import { FiPhone } from "react-icons/fi";
 import Link from "next/link";
 
 const Footer = () => {
@@ -14,47 +13,26 @@ const Footer = () => {
             Be the first to hear about new products, exclusive events, and
             online offers.
           </p>
-          <p className="mt-4 text-sm font-medium text-gray-700">
-            Sign up and get 10% off your first order.
+          <p className="mt-4 text-sm text-gray-600">
+            Newsletter signup is not enabled in this demo yet.
           </p>
-          <form
-            className="mt-6 flex max-w-md"
-            onSubmit={(event) => event.preventDefault()}
-          >
-            <label htmlFor="newsletter-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              placeholder="Enter your email"
-              required
-              className="min-w-0 flex-1 rounded-l-md border border-gray-300 px-3 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-black"
-            />
-            <button
-              type="submit"
-              className="rounded-r-md bg-black px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-gray-800"
-            >
-              Subscribe
-            </button>
-          </form>
         </section>
 
         <section className="min-w-0">
           <h2 className="text-lg font-medium text-gray-900">Shop</h2>
           <nav className="mt-5 space-y-3">
             {[
-              "Men's Top Wear",
-              "Women's Top Wear",
-              "Men's Bottom Wear",
-              "Women's Bottom Wear",
+              { label: "Men's Top Wear", href: "/shop?gender=men&category=top-wear" },
+              { label: "Women's Top Wear", href: "/shop?gender=women&category=top-wear" },
+              { label: "Men's Bottom Wear", href: "/shop?gender=men&category=bottom-wear" },
+              { label: "Women's Bottom Wear", href: "/shop?gender=women&category=bottom-wear" },
             ].map((item) => (
               <Link
-                key={item}
-                href="#"
+                key={item.label}
+                href={item.href}
                 className="block text-sm text-gray-600 transition-colors hover:text-black"
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </nav>
@@ -63,34 +41,34 @@ const Footer = () => {
         <section className="min-w-0">
           <h2 className="text-lg font-medium text-gray-900">Support</h2>
           <nav className="mt-5 space-y-3">
-            {["Contact Us", "About Us", "FAQs", "Features"].map((item) => (
+            {[
+              { label: "Contact Us", href: "/contact" },
+              { label: "About Us", href: "/about" },
+              { label: "FAQs", href: "/faq" },
+              { label: "Shipping & Returns", href: "/shipping-returns" },
+              { label: "Privacy Policy", href: "/privacy" },
+              { label: "Terms of Service", href: "/terms" },
+              { label: "Features", href: "/#features" },
+            ].map((item) => (
               <Link
-                key={item}
-                href="#"
+                key={item.label}
+                href={item.href}
                 className="block text-sm text-gray-600 transition-colors hover:text-black"
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </nav>
         </section>
 
         <section className="min-w-0">
-          <h2 className="text-lg font-medium text-gray-900">Follow Us</h2>
-          <div className="mt-5 flex items-center gap-5">
-            <a href="#" aria-label="Follow us on Threads" className="text-gray-800 transition-colors hover:text-gray-500">
-              <span className="text-xl font-medium">∞</span>
-            </a>
-            <a href="#" aria-label="Follow us on Instagram" className="text-gray-800 transition-colors hover:text-gray-500">
-              <FiInstagram className="h-5 w-5" />
-            </a>
-            <a href="#" aria-label="Follow us on X" className="text-gray-800 transition-colors hover:text-gray-500">
-              <FaXTwitter className="h-4 w-4" />
-            </a>
-          </div>
-          <p className="mt-8 text-sm text-gray-600">Call Us</p>
+          <h2 className="text-lg font-medium text-gray-900">Talk to us</h2>
+          <Link href="/contact" className="mt-5 block text-sm text-gray-600 transition-colors hover:text-black">
+            Contact store support
+          </Link>
+          <p className="mt-8 text-sm text-gray-600">Call us</p>
           <a
-            href="tel:0123456789"
+            href="tel:+8801701979554"
             className="mt-2 flex flex-wrap items-center gap-3 text-lg font-semibold text-gray-900 break-all"
           >
             <FiPhone className="h-5 w-5" />

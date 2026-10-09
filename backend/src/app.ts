@@ -17,7 +17,7 @@ import { UPLOAD_DIR } from "./lib/upload.js";
 const app = express();
 app.set("trust proxy", 1);
 
-app.use(cors({ origin: config.clientOrigin.split(",") }));
+app.use(cors({ origin: config.clientOrigin.split(",").map((origin) => origin.trim()) }));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: false, limit: "100kb" })); // SSLCommerz posts forms
 

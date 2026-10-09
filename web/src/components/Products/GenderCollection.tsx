@@ -7,12 +7,12 @@ const collections = [
   {
     title: "Women's Collection",
     image: assets.womensCollection,
-    link: "/collections/all?gender=women",
+    link: "/shop?gender=women",
   },
   {
     title: "Men's Collection",
     image: assets.mensCollection,
-    link: "/collections/all?gender=men",
+    link: "/shop?gender=men",
   },
 ];
 
