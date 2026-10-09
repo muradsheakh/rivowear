@@ -1,0 +1,8 @@
+.env
+backend/.env
+web/.env.local
+node_modules/
+backend/dist/
+backend/uploads/
+web/.next/
+web/tsconfig.tsbuildinfo
