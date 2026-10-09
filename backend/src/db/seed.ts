@@ -115,7 +115,7 @@ export const seedIfEmpty = async () => {
       throw new Error("Set ADMIN_CONTACT and a unique ADMIN_PASSWORD before creating the first production admin.");
     }
     await insertAdmin(contact, await hashPassword(password));
-    console.log("[db] created the first admin account");
+    console.log("[db] created or promoted the first admin account");
   }
   if ((await countProducts()) === 0 && process.env.SEED_DEMO_PRODUCTS !== "false") {
     for (const product of seedProducts()) await insertProduct(product);

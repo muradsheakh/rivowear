@@ -60,9 +60,21 @@ export const setPassword = async (id: string, passwordHash: string) => {
 export const adminExists = async (db: Db = pool) => Boolean(await one("SELECT 1 FROM users WHERE role = 'admin' LIMIT 1", [], db));
 
 export const insertAdmin = async (contact: string, passwordHash: string, db: Db = pool) => {
+  const normalizedContact = contact.trim().toLowerCase();
+  const phone = normalizePhone(contact);
+  const existing = await one(
+    "SELECT id FROM users WHERE lower(contact) = lower($1) OR lower(email) = lower($1) OR ($2::text IS NOT NULL AND phone = $2) LIMIT 1",
+    [normalizedContact, phone],
+    db,
+  );
+  if (existing) {
+    await db.query("UPDATE users SET role = 'admin', password_hash = $2 WHERE id = $1", [existing.id, passwordHash]);
+    return;
+  }
+
   await db.query(
-    "INSERT INTO users (name, contact, email, role, password_hash) VALUES ('Admin User', $1, $2, 'admin', $3) ON CONFLICT DO NOTHING",
-    [contact.toLowerCase(), contact.includes("@") ? contact.toLowerCase() : null, passwordHash],
+    "INSERT INTO users (name, contact, email, role, password_hash) VALUES ('Admin User', $1, $2, 'admin', $3)",
+    [normalizedContact, normalizedContact.includes("@") ? normalizedContact : null, passwordHash],
   );
 };
 

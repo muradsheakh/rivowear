@@ -46,6 +46,14 @@ export const adminOnly = (_request: Request, response: Response, next: NextFunct
   next();
 };
 
+export const customerOnly = (_request: Request, response: Response, next: NextFunction) => {
+  if (currentUser(response).role !== "customer") {
+    response.status(403).json({ message: "Customer account access required." });
+    return;
+  }
+  next();
+};
+
 type RateLimitOptions = {
   /** Counter name. Defaults to the route, so every route has its own limit. */
   name?: string;

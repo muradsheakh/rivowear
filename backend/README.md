@@ -12,6 +12,8 @@ npm run dev              # http://localhost:4000
 
 In development, the default admin is `admin@rivowear.com` / `Admin@123`. Production requires explicit `ADMIN_CONTACT` and `ADMIN_PASSWORD` values in `.env`; startup refuses to create the first administrator with the default password.
 
+Admin and customer are separate account roles. When the first admin is seeded, an existing customer with the configured `ADMIN_CONTACT` is promoted to admin and its password is set from `ADMIN_PASSWORD`; after an admin already exists, changing these environment variables does not change existing accounts.
+
 ## Endpoints
 
 Auth: `POST /api/auth/register | login | logout | forgot-password | reset-password`, `GET /api/auth/me`

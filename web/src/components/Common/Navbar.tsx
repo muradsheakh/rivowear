@@ -89,9 +89,13 @@ const Navbar = () => {
                   {user.role === "admin" && (
                     <Link href="/admin" onClick={() => setAccountOpen(false)} className="block px-4 py-2 hover:bg-gray-100">Admin dashboard</Link>
                   )}
-                  <Link href="/account" onClick={() => setAccountOpen(false)} className="block px-4 py-2 hover:bg-gray-100">My profile</Link>
-                  <Link href="/orders" onClick={() => setAccountOpen(false)} className="block px-4 py-2 hover:bg-gray-100">My orders</Link>
-                  <Link href="/wishlist" onClick={() => setAccountOpen(false)} className="block px-4 py-2 hover:bg-gray-100">Wishlist</Link>
+                  {user.role === "customer" && (
+                    <>
+                      <Link href="/account" onClick={() => setAccountOpen(false)} className="block px-4 py-2 hover:bg-gray-100">My profile</Link>
+                      <Link href="/orders" onClick={() => setAccountOpen(false)} className="block px-4 py-2 hover:bg-gray-100">My orders</Link>
+                      <Link href="/wishlist" onClick={() => setAccountOpen(false)} className="block px-4 py-2 hover:bg-gray-100">Wishlist</Link>
+                    </>
+                  )}
                   <button
                     type="button"
                     onClick={() => {
@@ -111,18 +115,20 @@ const Navbar = () => {
             </Link>
           )}
 
-          <button
-            onClick={() => setDrawerOpen(true)}
-            className="relative hover:text-black"
-            aria-label="Open cart"
-          >
-            <HiOutlineShoppingBag className="h-6 w-6 text-gray-700" />
-            {itemCount > 0 && (
-              <span className="bg-rabbit-red absolute -top-1 rounded-full px-2 py-0.5 text-xs text-white">
-                {itemCount}
-              </span>
-            )}
-          </button>
+          {user?.role !== "admin" && (
+            <button
+              onClick={() => setDrawerOpen(true)}
+              className="relative hover:text-black"
+              aria-label="Open cart"
+            >
+              <HiOutlineShoppingBag className="h-6 w-6 text-gray-700" />
+              {itemCount > 0 && (
+                <span className="bg-rabbit-red absolute -top-1 rounded-full px-2 py-0.5 text-xs text-white">
+                  {itemCount}
+                </span>
+              )}
+            </button>
+          )}
           {/* search bar  */}
 
           <button

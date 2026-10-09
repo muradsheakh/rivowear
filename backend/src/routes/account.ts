@@ -3,7 +3,7 @@ import { z } from "zod";
 import { publicTracking } from "../lib/orders.js";
 import { normalizePhone } from "../lib/util.js";
 import { firstIssue, passwordSchema, publicUser } from "../lib/validation.js";
-import { auth, currentUser, param, rateLimit } from "../middleware.js";
+import { auth, currentUser, customerOnly, param, rateLimit } from "../middleware.js";
 import { addAddress, countAddresses, deleteAddress, listAddresses, setDefaultAddress, updateAddress } from "../repo/addresses.js";
 import { myReviews, updateOwnReview, deleteOwnReview } from "../repo/misc.js";
 import { accountStats, claimGuestOrder } from "../repo/orders.js";
@@ -11,7 +11,7 @@ import { deleteUser, findUserById, invalidateSessions, setPassword, updateProfil
 import { hashPassword, signToken, verifyPassword } from "../security.js";
 
 const router = Router();
-router.use(auth);
+router.use(auth, customerOnly);
 
 const MAX_ADDRESSES = 10;
 

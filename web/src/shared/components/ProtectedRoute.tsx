@@ -5,23 +5,28 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../context/useAuth";
 import { useHydrated } from "../useHydrated";
 
-type ProtectedRouteProps = { adminOnly?: boolean; children: ReactNode };
+type ProtectedRouteProps = { adminOnly?: boolean; customerOnly?: boolean; children: ReactNode };
 
-/** Wrap pages that need a login. Logged-out visitors are sent to /login and brought back afterwards. */
-const ProtectedRoute = ({ adminOnly = false, children }: ProtectedRouteProps) => {
+/** Restricts pages by role and sends logged-out visitors to login, then back to the requested page. */
+const ProtectedRoute = ({ adminOnly = false, customerOnly = false, children }: ProtectedRouteProps) => {
   const { token, user } = useAuth();
   const hydrated = useHydrated();
   const router = useRouter();
   const pathname = usePathname();
-  const blocked = hydrated && (!token || (adminOnly && user !== null && user.role !== "admin"));
+  const blocked =
+    hydrated &&
+    (!token ||
+      (adminOnly && user !== null && user.role !== "admin") ||
+      (customerOnly && user !== null && user.role !== "customer"));
 
   useEffect(() => {
     if (!hydrated) return;
     if (!token) router.replace(`/login?from=${encodeURIComponent(pathname + window.location.search)}`);
     else if (adminOnly && user && user.role !== "admin") router.replace("/");
-  }, [hydrated, token, user, adminOnly, pathname, router]);
+    else if (customerOnly && user && user.role !== "customer") router.replace("/admin");
+  }, [hydrated, token, user, adminOnly, customerOnly, pathname, router]);
 
-  if (!hydrated || blocked || !token || (adminOnly && !user)) {
+  if (!hydrated || blocked || !token || ((adminOnly || customerOnly) && !user)) {
     return <p className="py-24 text-center text-sm text-gray-500">Loading...</p>;
   }
   return <>{children}</>;
